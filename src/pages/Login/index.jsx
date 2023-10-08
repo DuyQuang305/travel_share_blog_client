@@ -7,8 +7,10 @@ import { useFormik } from 'formik';
 import { loginSchema } from '../../middleware/validate';
 import { useGoogleLogin } from '@react-oauth/google';
 import ggImg from './img/google.svg'
-import bg_img from './img/login_bg.png'
-import fb_img from './img/fb_icon.svg'
+// import bg_img from './img/login_bg.png'
+import bg_login from './img/login1.svg'
+import logo from './img/logo-bgr-white.svg'
+import fb_img from './img/Facebook.svg'
 import '../../styles/sass/reset.scss'
 import './login.scss'
 const apiUrl = process.env.REACT_APP_SERVER_URL
@@ -79,11 +81,13 @@ function Login() {
     <div className="wrap-auth">
       <div className='login__container'>
         <div className='login__image'>
-          <img src={bg_img} alt="background_image" />
+          <h1>Start your journey by one click, explore beautiful world!</h1>
+          <img src={bg_login} alt="background_image" />
         </div>
         <form className='auth-login__form' onSubmit={formik.handleSubmit}>
           <div className="login__title">
-             <span style={{ color: '#6358DC', fontSize: '26px' }}>Blossom</span>
+             <img src={logo} alt='logo' />
+             <span style={{ fontSize: '35px', fontWeight: '600' }}>Log In</span>
           </div>
 
           <div className='wrap-input username-input'>
@@ -133,12 +137,12 @@ function Login() {
           <div className="socical__wrap">
             <button onClick={() => loginGoogle()} className='social-btn social-btn__google'>
               <img src={ggImg} alt="google" />
-              <span>Login with Google</span>
+              <span>Continue in with Google</span>
             </button>
 
             <button onClick={() => loginGoogle()} className='social-btn social-btn__facebook'>
               <img src={fb_img} alt="facebook" />
-              <span>Login with Facebook</span>
+              <span>Continue with Facebook</span>
             </button>
           </div>
 

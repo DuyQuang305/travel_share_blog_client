@@ -1,5 +1,5 @@
 .wrap-auth{
-    background: #E5E5E5;
+    background: #37717D;
     height: 100vh;
     overflow: hidden;
 }
@@ -26,6 +26,10 @@
 
 .login__title {
     margin-bottom: 30px;
+
+    img {
+        width: 40%;
+    }
 }
 
 
@@ -39,6 +43,7 @@
 
 .social-btn__google {
     margin-top: 10px;
+
 }
 
 .social-btn__facebook {
@@ -49,14 +54,15 @@
 }
 
 .social-btn__google img {
-    width: 45px;
+    width: 20px;
     height: 45px;
+    margin-right: 10px;
 }   
 
 .social-btn__facebook img {
-    width: 30px;
+    width: 20px;
     height: 30px;
-    margin-left: 14px;
+    margin-right: 5px;
 }   
 
 
@@ -78,7 +84,7 @@
 
 hr {
     width: 100%;
-    border: 2px solid #000;
+    border: 1px solid #000;
 }
 
 .group__input {
@@ -108,9 +114,12 @@ hr {
     margin: 0 auto;
     margin-top: 40px;
     border-radius: 10px;
-    background-color: #6358DC;
+    background-color: #37717D;
     color: #fff;
     height: 45px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    margin-bottom: 30px;
 }
 
 .login__text {
