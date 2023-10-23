@@ -55,22 +55,23 @@ function Login() {
     onSubmit: async (values) => {
 
       try {
-        const response = await axios.post(`${apiUrl}/auth/login`, {
+        const {data} = await axios.post(`${apiUrl}/api/v1.0/client/auth/login`, {
           email: values.email,
           password: values.password,
         });
       
-        if (response.status === 200) {
-          const {data} = response.data; // Dữ liệu phản hồi từ máy chủ trong trường hợp thành công
-          localStorage.setItem("ACCESS_TOKEN", JSON.stringify(data));
-          navigate("/");
+        if (data.status !== 200) {
+          toast.error('Login failed');
+        } else {
+          localStorage.setItem("ACCESS_TOKEN", JSON.stringify(data.payload.accessToken));
+          toast.success(data.message)
+          setTimeout(() => {
+            navigate("/");
+          }, 5000)
         }
       } catch (error) {
-        const data = error.response.data
-        
-        if (data.statusCode === 400) {
-          toast.error(data.message)
-      }
+        const { data } = error.response
+        toast.error(data.payload[0].msg)
 
       formik.handleReset()
     }

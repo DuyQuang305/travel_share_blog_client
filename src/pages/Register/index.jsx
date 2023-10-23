@@ -21,8 +21,8 @@ function Register() {
 
   const formik = useFormik({
     initialValues: {
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -33,25 +33,27 @@ function Register() {
     onSubmit: async (values) => {
       try {
         const { data } = await axios.post(
-          `${apiUrl}/auth/register`,
+          `${apiUrl}/api/v1.0/client/auth/register`,
           {
-            firstname: values.firstname,
-            lastname: values.lastname,
+            firstName: values.firstName,
+            lastName: values.lastName,
             email: values.email,
             password: values.password,
           }
         );
-        if (data.success === false) {
-          toast.error(data.msg);
+
+        if (data.status !== 201) {
+          toast.error('Register failed');
         } else {
           toast.success(data.message)
           setTimeout (() => {
-            navigate(`/verify?email=${values.email}`)
+            navigate('/login')
           }, 5000)
         }
 
       } catch (error) {
-        toast.error(error.message);
+        const { data } = error.response
+        toast.error(data.payload[0].msg)
       }
 
       formik.handleReset();
@@ -74,14 +76,14 @@ function Register() {
               <input
                 type="text"
                 placeholder="Firstname"
-                name='firstname'
-                value={formik.values.firstname}
+                name='firstName'
+                value={formik.values.firstName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.firstname && formik.values.firstname && (
-              <span className='form__message--error'>{formik.errors.firstname}</span>
+            {formik.touched.firstName && formik.values.firstName && (
+              <span className='form__message--error'>{formik.errors.firstName}</span>
             )}
           </div>
 
@@ -90,14 +92,14 @@ function Register() {
               <input
                 type="text"
                 placeholder="Lastname"
-                name='lastname'
-                value={formik.values.lastname}
+                name='lastName'
+                value={formik.values.lastName}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
             </div>
-            {formik.touched.lastname && formik.values.lastname && (
-              <span className='form__message--error'>{formik.errors.lastname}</span>
+            {formik.touched.lastName && formik.values.lastName && (
+              <span className='form__message--error'>{formik.errors.lastName}</span>
             )}
           </div>
 

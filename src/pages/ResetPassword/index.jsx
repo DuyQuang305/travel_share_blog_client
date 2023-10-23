@@ -41,9 +41,10 @@ function ResetPassword() {
 
     onSubmit: async (values) => {
       try {
-            const response = await axios.put(`${apiUrl}/auth/reset-password?email=${email}`, {
+            const response = await axios.put(`${apiUrl}/api/v1.0/client/auth/reset-password`, {
+              email,
               password: values.password,
-              verificationCode: values.verificationCode
+              code: values.verificationCode
             });
             
             const data = response.data;
@@ -53,15 +54,20 @@ function ResetPassword() {
             setTimeout(() => {
               navigate('/login')
             }, 5000)
+
           } catch (error) {
-            const data = error.response.data
+            const {data } = error.response
+            if (data.message === 'validate errors') {
+              toast.error(data.payload[0].msg)
+            } else {
             toast.error(data.message)
           }
-
-         formik.handleReset();
-
+        }
+        formik.handleReset();
     }
-  })
+  }) 
+
+
   return (
       <div className="reset-password">
         <div className="reset-password__modal-overlay"></div>

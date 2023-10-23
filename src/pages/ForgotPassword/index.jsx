@@ -28,24 +28,29 @@ const ForgotPassword = () => {
 
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post(`${apiUrl}/auth/resend-verification-code`, {
+        const { data } = await axios.post(`${apiUrl}/api/v1.0/client/auth/forgot-password`, {
           email: values.email,
-          typeCode:  'verify-password'
         });
 
-        toast.success(data.message)
-
-        setTimeout(() => {
-          navigate(`/reset-password?email=${values.email}`)
-        }, 5000);
+        if (data.status !== 200) {
+          toast.error('Send email failed');
+        } else {
+          toast.success(data.message);
+          setTimeout(() => {
+            navigate(`/verify?email=${values.email}`)
+          }, 5000);
+        }
         
       } catch (error) {
-        const {data} = error.response
-        toast.error(data.message)
+        const { data } = error.response
+        if (data.status === 403){
+          toast.error(data.message)
+        } else {
+          toast.error(data.payload[0].msg)
+        }
       } 
 
       formik.handleReset();
-
 
     }
   }) 

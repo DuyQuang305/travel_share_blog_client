@@ -36,21 +36,27 @@ function Verify() {
 
     onSubmit: async (values) => {
         try {
-          const response = await axios.post(`${apiUrl}/auth/verify-user-by-code?email=${email}`, {
-            verificationCode: values.code,
+          const {data} = await axios.post(`${apiUrl}/api/v1.0/client/auth/verify-code`, {
+            email,
+            code: values.code,
           });
 
-          const data = response.data
-          
-          toast.success(data.message)
-
-          setTimeout(() => {
-            navigate('/login')
-          }, 5000)
+          if (data.status !== 200) {
+            toast.error('Verify code failed');
+          } else {
+            toast.success(data.message);
+            setTimeout(() => {
+              navigate(`/reset-password?email=${email}`)
+            }, 5000);
+          }
          
         } catch(error) {
-          const data = error.response.data
-          toast.error(data.message)
+          const { data } = error.response
+          if (data.status === 403){
+            toast.error(data.message)
+          } else {
+            toast.error(data.payload[0].msg)
+          }
         }
 
        formik.handleReset()
