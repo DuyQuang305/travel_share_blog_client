@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify'
+import styled from 'styled-components'
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { registerSchema } from '../../middleware/validate';
-import bg_img from './img/login_bg.png'
-import './register.scss'
+import BackgroundSignUp from '../../assets/background-signup.svg'
+import Logo from '../../assets/logo-blossom-w.svg'
+// import './register.scss'
 
 const apiUrl = process.env.REACT_APP_SERVER_URL
 
@@ -62,20 +64,25 @@ function Register() {
   })
 
   return (
-    <div className="wrap-auth">
-      <div className='register__container'>
-        <div className='register__image'>
-          <img src={bg_img} alt="background_image" />
-        </div>
-        <form className='auth-register__form' onSubmit={formik.handleSubmit}>
-          <div className="register__title">
-             <span style={{ color: '#6358DC', fontSize: '26px' }}>Blossom</span>
+    <Wrapper>
+      <BackgroundContainer>
+        <h1>Sign up and be part of our travel blog community!</h1>
+        <img src={BackgroundSignUp} alt="background_image" />
+      </BackgroundContainer>
+
+      <LoginFormWrapper>
+        <LoginFormContainer>
+        <form onSubmit={formik.handleSubmit}>
+          <div>
+              <img src={Logo} alt='logo' />
+              <span style={{ fontSize: '35px', fontWeight: '600', marginTop: '15px', marginBottom: '30px' }}>Sign Up</span>
           </div>
-          <div className='wrap-input username-input'>
-            <div className="group__input">
+
+          <div>
+            <div className="style-input">
               <input
                 type="text"
-                placeholder="Firstname"
+                placeholder="First name"
                 name='firstName'
                 value={formik.values.firstName}
                 onChange={formik.handleChange}
@@ -83,15 +90,15 @@ function Register() {
               />
             </div>
             {formik.touched.firstName && formik.values.firstName && (
-              <span className='form__message--error'>{formik.errors.firstName}</span>
+              <span className='message-error'>{formik.errors.firstName}</span>
             )}
           </div>
 
-          <div className='wrap-input username-input'>
-            <div className="group__input">
+          <div>
+            <div className="style-input">
               <input
                 type="text"
-                placeholder="Lastname"
+                placeholder="Last name"
                 name='lastName'
                 value={formik.values.lastName}
                 onChange={formik.handleChange}
@@ -99,15 +106,15 @@ function Register() {
               />
             </div>
             {formik.touched.lastName && formik.values.lastName && (
-              <span className='form__message--error'>{formik.errors.lastName}</span>
+              <span className='message-error'>{formik.errors.lastName}</span>
             )}
           </div>
 
-          <div className="wrap-input email-input">
-            <div className="group__input">
+          <div>
+            <div className="style-input">
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Enter your email"
                 name='email'
                 value={formik.values.email}
                 onChange={formik.handleChange}
@@ -115,15 +122,15 @@ function Register() {
               />
             </div>
             {formik.touched.email && formik.values.email && (
-              <span className='form__message--error'>{formik.errors.email}</span>
+              <span className='message-error'>{formik.errors.email}</span>
             )}
           </div>
 
-          <div className='wrap-input password-input'>
-            <div className="group__input">
+          <div>
+            <div className="style-input">
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Enter your password"
                 name='password'
                 value={formik.values.password}
                 onChange={formik.handleChange}
@@ -131,15 +138,15 @@ function Register() {
               />
             </div>
             {formik.touched.password && formik.values.password && (
-              <span className='form__message--error'>{formik.errors.password}</span>
+              <span className='message-error'>{formik.errors.password}</span>
             )}
           </div>
 
-          <div className='wrap-input confirmPassword-input'>
-            <div className="group__input">
+          <div>
+            <div className="style-input">
               <input
                 type="password"
-                placeholder="Confirm Password"
+                placeholder="Confirm your password"
                 name='confirmPassword'
                 value={formik.values.confirmPassword}
                 onChange={formik.handleChange}
@@ -147,13 +154,13 @@ function Register() {
               />
             </div>
             {formik.touched.confirmPassword && formik.values.confirmPassword && (
-              <span className='form__message--error'>{formik.errors.confirmPassword}</span>
+              <span className='message-error'>{formik.errors.confirmPassword}</span>
             )}
           </div>
-          <button className='btn_submit' type="submit">Register</button>
-          <div className='register__text'>
+          <button className='signup-submit' type="submit">Sign Up</button>
+          <div className='signup-text'>
             <span>Do you have an Account?</span>
-            <Link style={{marginLeft: '10px'}} to="/login" ><span style={{color:"#000080"}}>Login</span></Link>
+            <Link style={{marginLeft: '10px'}} to="/login" ><span style={{color:"#000080"}}>Login now!</span></Link>
           </div>
         </form>
         <ToastContainer
@@ -168,9 +175,83 @@ function Register() {
           pauseOnHover
           theme="dark"
         />
-      </div>
-    </div>
+
+        </LoginFormContainer>
+      </LoginFormWrapper>
+  </Wrapper>
   )
 }
+export default Register   
 
-export default Register;      
+
+const Wrapper = styled.div`
+  display: flex;
+`   
+const BackgroundContainer = styled.div`
+  background-color: #37717D;
+  width: 50%;
+  height: 100vh;
+  h1{
+    width: 30%;
+    position: absolute;
+    top: 32%;
+    left: 13%;
+    transform: translateY(-50%);
+    z-index: 1;
+    color: #FFF;
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 60px;
+  }
+  img{
+    height: 100vh;
+    background-size: cover;
+    margin-left: 15%;
+  }
+`
+const LoginFormWrapper = styled.div`
+  width: 50%;
+  height: 100vh;
+  background-color: #37717D;
+  margin-left: 2%;
+`
+const LoginFormContainer = styled.div`
+  width: 75%;
+  height: 88vh;
+  background-color: #FFF;
+  padding: 40px 60px 40px 60px;
+  border-radius: 10px;
+  margin: 6% 1%;
+  .style-input {
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 12px 16px;
+    border: 1px solid #8E8E8E;
+    font-size: 15px;
+  }
+  .message-error {
+    color: #E43B3B;
+    font-size: 14px;
+    margin-top: 5px;
+  } 
+  .signup-submit {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-radius: 10px;
+    background-color: #37717D;
+    color: #fff;
+    height: 45px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  .signup-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`

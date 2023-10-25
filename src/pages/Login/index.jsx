@@ -14,7 +14,6 @@ import backgroundIMG from '../../assets/background-img-auth.svg'
 import logo from './img/logo-bgr-white.svg'
 import fb_img from './img/Facebook.svg'
 import '../../styles/sass/reset.scss'
-// import './login.scss'
 const apiUrl = process.env.REACT_APP_SERVER_URL
 
 function Login() {
@@ -127,7 +126,7 @@ function Login() {
                 <span className='message-error'>{formik.errors.password}</span>
               )}
             </div>
-            <button className='login-submit' type="submit">LOGIN</button>
+            <button className='login-submit' type="submit">Login</button>
 
             <div className="login-underlined">
               <hr />
@@ -158,7 +157,7 @@ function Login() {
             <div className='login-text'>
               <div style={{marginBottom: '10px'}} className="login-text-register">
                 <span>Don't have an Account?</span>
-                <Link style={{marginLeft: '10px'}} to="/register"><span style={{color:"#000080"}}>Register</span></Link>
+                <Link style={{marginLeft: '10px'}} to="/register"><span style={{color:"#000080"}}>Sign up now!</span></Link>
               </div>
               <Link style={{fontSize: '17px'}} to="/forgot-password"><span style={{color:"#000080"}}>Forgot Password</span></Link>
             </div>
