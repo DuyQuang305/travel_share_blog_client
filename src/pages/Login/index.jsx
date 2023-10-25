@@ -90,33 +90,33 @@ function Login() {
       <LoginFormWrapper>
         <LoginFormContainer>
           <form onSubmit={formik.handleSubmit}>
-            <div className="login__title">
+            <div>
               <img src={logo} alt='logo' />
-              <span style={{ fontSize: '35px', fontWeight: '600' }}>Log In</span>
+              <span style={{ fontSize: '35px', fontWeight: '600', marginTop: '15px', marginBottom: '20px' }}>Log In</span>
             </div>
 
-            <div className='wrap-input username-input'>
-              <div className="group__input">
+            <div>
+              <div className="style-input">
                 <input
                   id='email'
                   type="text"
                   name='email'
-                  placeholder="email"
+                  placeholder="Enter your email"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
               </div>
               {formik.touched.email && formik.values.email && (
-                <span className='form__message--error'>{formik.errors.email}</span>
+                <span className='message-error'>{formik.errors.email}</span>
               )}
             </div>
 
-            <div className='wrap-input password-input'>
-              <div className="group__input">
+            <div>
+              <div className="style-input">
                 <input
                   type="password"
-                  placeholder="Password"
+                  placeholder="Enter your password"
                   name='password'
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -124,12 +124,12 @@ function Login() {
                 />
               </div>
               {formik.touched.password && formik.values.password && (
-                <span className='form__message--error'>{formik.errors.password}</span>
+                <span className='message-error'>{formik.errors.password}</span>
               )}
             </div>
-            <button className='btn_submit' type="submit">LOGIN</button>
+            <button className='login-submit' type="submit">LOGIN</button>
 
-            <div className="login__form-underlined">
+            <div className="login-underlined">
               <hr />
               <span style={{
                 marginLeft: '20px',
@@ -139,24 +139,28 @@ function Login() {
               <hr />
             </div>
 
-            <div className="socical__wrap">
-              <button onClick={() => loginGoogle()} className='social-btn social-btn__google'>
-                <img src={ggImg} alt="google" />
-                <span>Continue in with Google</span>
-              </button>
+            <div className="socical-btn">
+              <div>
+                <button onClick={() => loginGoogle()} className='social-google'>
+                  <img src={ggImg} alt="google" />
+                  <span>Continue in with Google</span>
+                </button>
+              </div>
 
-              <button onClick={() => loginGoogle()} className='social-btn social-btn__facebook'>
-                <img src={fb_img} alt="facebook" />
-                <span>Continue with Facebook</span>
-              </button>
+              <div>
+                <button onClick={() => loginGoogle()} className='social-facebook'>
+                  <img src={fb_img} alt="facebook" />
+                  <span>Continue with Facebook</span>
+                </button>
+              </div>
             </div>
 
-            <div className='login__text'>
-              <div style={{marginBottom: '10px'}} className="login__text-register">
+            <div className='login-text'>
+              <div style={{marginBottom: '10px'}} className="login-text-register">
                 <span>Don't have an Account?</span>
                 <Link style={{marginLeft: '10px'}} to="/register"><span style={{color:"#000080"}}>Register</span></Link>
               </div>
-              <Link style={{fontSize: '20px'}} to="/forgot-password"><span style={{color:"#000080"}}>Forgot Password</span></Link>
+              <Link style={{fontSize: '17px'}} to="/forgot-password"><span style={{color:"#000080"}}>Forgot Password</span></Link>
             </div>
           </form>
           <ToastContainer
@@ -186,6 +190,7 @@ const Wrapper = styled.div`
 const BackgroundContainer = styled.div`
   background-color: #37717D;
   width: 50%;
+  height: 100vh;
   h1{
     width: 30%;
     position: absolute;
@@ -207,12 +212,91 @@ const BackgroundContainer = styled.div`
 
 const LoginFormWrapper = styled.div`
   width: 50%;
+  height: 100vh;
   background-color: #37717D;
+  margin-left: 2%;
+`
+const SocialButton = `
+  margin-top: 10px;
+      img {
+        width: 20px;
+        height: 40px;
+        margin-right: 10px;
+      }
 `
 const LoginFormContainer = styled.div`
   width: 75%;
+  height: 88vh;
   background-color: #FFF;
   padding: 50px 60px 50px 60px;
   border-radius: 10px;
   margin: 6% 1%;
+
+  .style-input {
+    margin: 0 auto;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 12px 16px;
+    border: 1px solid #8E8E8E;
+    font-size: 15px;
+  }
+  .message-error {
+    color: #E43B3B;
+    font-size: 14px;
+    margin-top: 5px;
+  } 
+  .login-submit {
+    padding: 0 44% 0 44%;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-radius: 10px;
+    background-color: #37717D;
+    color: #fff;
+    height: 45px;
+    font-family: Noto Sans;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+  .login-underlined {
+    max-width: 380px;
+    margin: 0 0 20px 20px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  hr {
+    width: 100%;
+    border: 1px solid #8E8E8E;
+  }
+
+  .socical-btn {
+    button {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      border: 1px solid #8E8E8E;
+    }
+  }
+  .social-google {
+    ${SocialButton}
+  }
+
+  .social-facebook {
+    ${SocialButton}
+  }
+
+  .login-text {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .login-text-register {
+    display: flex;
+}
 `
