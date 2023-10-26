@@ -87,20 +87,6 @@ function ResetPassword() {
 
           <div>
             <div className="style-input">
-              <input  type="text"
-                      placeholder="Enter your code..."
-                      name='verificationCode'
-                      value={formik.values.verificationCode}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                />
-            </div>
-            { formik.touched.verificationCode && formik.values.verificationCode && (
-                  <span className='message-error'>{formik.errors.verificationCode}</span>
-            )}
-          </div>
-          <div>
-            <div className="style-input">
               <input  type="password"
                       placeholder="Enter new password"
                       name='password'
@@ -127,7 +113,7 @@ function ResetPassword() {
                   <span className='message-error'>{formik.errors.confirmPassword}</span>
             )}
           </div>
-          <button className="reset-submit" type="submit">Reset Password</button>
+          <button className="reset-submit" type="submit">Update password</button>
           <div className="reset-text">
             <span >Do you have an account?</span>
             <Link to="/login"><span style={{color:"#FA9038", marginLeft: "4px"}}>Login</span></Link>
@@ -169,7 +155,7 @@ const ResetFormWrapper = styled.div`
   background-color: #FFF;
   border-radius: 10px;
   width: 37%;
-  height: 67%;
+  height: 60%;
   padding: 2% 3% 2% 3%;
 
   p {
