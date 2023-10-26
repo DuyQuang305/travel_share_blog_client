@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { Link, useNavigate  } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { verifySchema } from '../../middleware/validate';
-import './verify.scss'
+import React, { useState, useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import styled from 'styled-components'
+import axios from 'axios'
+import { useNavigate  } from 'react-router-dom'
+import { useFormik } from 'formik'
+import { verifySchema } from '../../middleware/validate'
+
+import BackgroundV from '../../assets/background-password.svg'
+import logo from '../../assets/logo-blossom-w.svg'
 
 const apiUrl =  process.env.REACT_APP_SERVER_URL
 
@@ -66,36 +69,45 @@ function Verify() {
 
 
   return (
-    <div className="verify__wrapper">
-      <div className="modal-overlay"></div>
-      <div className='verify__container'>
-          <form className='verify__form' onSubmit={formik.handleSubmit}>
-            <div className="verify__container__title">
-              <span style={{ color: '#6358DC', fontSize: '26px' }}>Blossom</span>
+    <Wrapper>
+      <Background>
+        <img src={BackgroundV} alt="background_image" />
+      </Background>
+
+      <VerifyFormWrapper>
+        <form onSubmit={formik.handleSubmit}>
+          <div>
+            <img style={{ width: '35%' }} src={logo} alt='logo' />
+            <span style={{ fontSize: '32px', fontWeight: '600', marginTop: '15px', marginBottom: '20px' }}>Verification</span>
+            <p>Enter your 4 digits code that you received on your email.</p>
+          </div>
+
+          <div>
+            <div className="style-input">
+              <input
+                id='code'
+                type="text"
+                name='code'
+                placeholder="Enter your code"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.code}
+              />
             </div>
+            {formik.touched.code && formik.values.code && (
+              <span className='message-error'>{formik.errors.code}</span>
+            )}
+          </div>
 
-            <div className='wrap-input username-input'>
-              <div className="group__input">
-                <input
-                  id='code'
-                  type="text"
-                  name='code'
-                  placeholder="Enter your code..."
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.code}
-                />
-              </div>
-              {formik.touched.code && formik.values.code && (
-                <span className='form__message--error'>{formik.errors.code}</span>
-              )}
-            </div>
+          <button className='verify-submit' type="submit">Continue</button>
 
-            <button className='btn_submit' type="submit">Active</button>
+          <div style={{ display: 'flex', marginTop: '25px', justifyContent: 'center', fontSize: '15px'}}>
+            <span>If you didn’t receive a code! </span>
+            <span style={{ marginLeft: '5px', color: '#FA9038', cursor: 'pointer'}}>Resend</span>
+          </div>
+        </form>
 
-          </form>
-
-          <ToastContainer
+        <ToastContainer
           position="top-right"
           autoClose={5000}
           hideProgressBar={false}
@@ -108,9 +120,60 @@ function Verify() {
           theme="dark"
         />
 
-      </div>
-    </div>
+      </VerifyFormWrapper>
+    </Wrapper>
   )
 }
 
-export default Verify;
+export default Verify
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+const Background = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  overflow: hidden;
+`
+const VerifyFormWrapper = styled.div`
+  position: absolute;
+  background-color: #FFF;
+  border-radius: 10px;
+  width: 35%;
+  height: 50%;
+  padding: 3%;
+  p {
+    color: var(--text-off, #828282);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  .style-input {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 10px 15px;
+    border: 1px solid #8E8E8E;
+    font-size: 15px;
+  }
+  .message-error {
+    color: #E43B3B;
+    font-size: 14px;
+    margin-top: 5px;
+  } 
+  .verify-submit {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 25px;
+    border-radius: 10px;
+    background-color: #37717D;
+    color: #fff;
+    height: 45px;
+    font-weight: 500;
+  }
+`
