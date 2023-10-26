@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import ExploreIcon from '@mui/icons-material/Explore'
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates'
@@ -28,6 +29,7 @@ import Footer from '../../components/Footer'
 
 
 const Home = () => {
+  const navigate = useNavigate()
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 8; 
@@ -35,6 +37,7 @@ const Home = () => {
   const handlePageChange = page => {
     setCurrentPage(page);
   };
+
 
   
   return (

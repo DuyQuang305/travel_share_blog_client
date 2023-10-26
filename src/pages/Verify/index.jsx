@@ -52,7 +52,7 @@ function Verify() {
          
         } catch(error) {
           const { data } = error.response
-          if (data.status === 403){
+          if (data.status !== 400) {
             toast.error(data.message)
           } else {
             toast.error(data.payload[0].msg)
@@ -63,6 +63,7 @@ function Verify() {
 
     }
   }) 
+
 
   return (
     <div className="verify__wrapper">
