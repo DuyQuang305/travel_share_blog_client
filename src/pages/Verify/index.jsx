@@ -49,7 +49,7 @@ function Verify() {
           } else {
             toast.success(data.message);
             setTimeout(() => {
-              navigate(`/reset-password?email=${email}`)
+              navigate(`/reset-password?email=${email}&code=${values.code}`)
             }, 5000);
           }
          

@@ -29,7 +29,7 @@ function Login() {
   const loginGoogle = useGoogleLogin({
     onSuccess: async (codeResponse) => {
       const access_token = codeResponse.access_token
-      const response = await axios.post(`${apiUrl}/auth/google`, {
+      const response = await axios.post(`${apiUrl}/api/v1.0/client/auth/login-google`, {
         access_token,
       });
 
