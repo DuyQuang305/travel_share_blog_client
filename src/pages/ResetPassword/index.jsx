@@ -18,6 +18,7 @@ function ResetPassword() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('')
+  const [code, setCode] = useState('')
 
   useEffect( () => {
     if (localStorage.getItem('ACCESS_TOKEN')) {
@@ -29,6 +30,7 @@ function ResetPassword() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams) {
       setEmail(urlParams.get('email'))
+      setCode(urlParams.get('code'))
     }
   },[])
 
@@ -47,7 +49,7 @@ function ResetPassword() {
             const response = await axios.put(`${apiUrl}/api/v1.0/client/auth/reset-password`, {
               email,
               password: values.password,
-              code: values.verificationCode
+              code
             });
             
             const data = response.data;
