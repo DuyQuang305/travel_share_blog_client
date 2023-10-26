@@ -56,13 +56,13 @@ function ResetPassword() {
             }, 5000)
 
           } catch (error) {
-            const {data } = error.response
-            if (data.message === 'validate errors') {
-              toast.error(data.payload[0].msg)
+            const { data } = error.response
+            if (data.status !== 400) {
+              toast.error(data.message)
             } else {
-            toast.error(data.message)
+              toast.error(data.payload[0].msg)
+            }
           }
-        }
         formik.handleReset();
     }
   }) 

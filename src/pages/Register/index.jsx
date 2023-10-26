@@ -55,7 +55,11 @@ function Register() {
 
       } catch (error) {
         const { data } = error.response
-        toast.error(data.payload[0].msg)
+        if (data.status !== 400) {
+          toast.error(data.message)
+        } else {
+          toast.error(data.payload[0].msg)
+        }
       }
 
       formik.handleReset();

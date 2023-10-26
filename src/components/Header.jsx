@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import React, { useState } from "react"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import SearchIcon from '@mui/icons-material/Search'
 import AddIcon from '@mui/icons-material/Add'
@@ -11,6 +11,7 @@ import Avatar from '../assets/headeravt.svg'
 
 
 function Header({ onSearch }) {
+  const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState("")
 
   const handleSearch = (e) => {
@@ -27,6 +28,11 @@ function Header({ onSearch }) {
       e.preventDefault()
       onSearch(searchQuery)
     }
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('ACCESS_TOKEN')
+    window.location.href = '/login'
   }
 
   return (
@@ -102,7 +108,7 @@ function Header({ onSearch }) {
 
 {/* 3. Log out */}
                 <Link to='/'>
-                  <TooltipItem>Log Out</TooltipItem>
+                  <TooltipItem onClick={handleLogout}>Log Out</TooltipItem>
                 </Link>
 
             </Tooltip>

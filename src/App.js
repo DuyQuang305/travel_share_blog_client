@@ -28,9 +28,9 @@ const App = () => {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/verify" element={<Verify />} />
       <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/" element={<Home />} />
       {isAuthenticated ? (
         <>
+         <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<DashBoard />} />
         </>
       ) : (
